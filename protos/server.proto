@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option go_package = "github.com/chatapp/server/protos";
+
+package protos;
+
+message User {
+    string _id = 1;
+    string Name  = 2;
+}
+
+message UserMessage {
+    string _id = 1;
+    string content = 2;
+    string Time = 3;
+}
+
+message Conect{
+    User User = 1;
+    bool Active = 2;
+}
+
+message Done{}
+
+service Broadcast {
+    rpc CreateStream(Conect) returns (stream UserMessage) {}
+    rpc BroadcastMessage(UserMessage) returns (Done) {} 
+} 
